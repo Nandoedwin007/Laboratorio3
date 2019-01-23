@@ -1,8 +1,11 @@
 package com.example.edwincoronado.laboratorio3
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import com.example.edwincoronado.laboratorio3.Logic.ContactosAdapter
 import com.example.edwincoronado.laboratorio3.Logic.MyContacts
@@ -48,8 +51,32 @@ class MainActivity : AppCompatActivity() {
         val adaptador = ContactosAdapter(this, mostrarContactos)
         lvContactos.adapter = adaptador
 
+        adaptador.notifyDataSetChanged()
+
+        val button = findViewById<Button>(R.id.btnAgregar)
+        //Funcion que abre la activity de MostrarMenu
+        button.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(view: View): Unit {
+                // Handler code here.
+                val intent = Intent(this@MainActivity, AgregarContacto::class.java)
+                startActivity(intent)
+            }
+        })
+
+        val buttonRefrecar = findViewById<Button>(R.id.btnRefrescar)
+        //Funcion que abre la activity de MostrarMenu
+        buttonRefrecar.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(view: View): Unit {
+                // Handler code here.
+                adaptador.notifyDataSetChanged()
+            }
+        })
+
+
+
 
 
 
     }
+
 }
