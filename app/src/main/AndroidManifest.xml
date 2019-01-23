@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".AgregarContacto">
         </activity>
+        <activity android:name=".VerContacto">
+        </activity>
     </application>
 
 </manifest>

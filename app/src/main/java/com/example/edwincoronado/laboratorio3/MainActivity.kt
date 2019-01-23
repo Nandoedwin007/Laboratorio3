@@ -3,13 +3,11 @@ package com.example.edwincoronado.laboratorio3
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
+import android.widget.*
 import com.example.edwincoronado.laboratorio3.Logic.ContactosAdapter
 import com.example.edwincoronado.laboratorio3.Logic.MyContacts
-import android.widget.SimpleAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -52,6 +50,27 @@ class MainActivity : AppCompatActivity() {
         lvContactos.adapter = adaptador
 
         adaptador.notifyDataSetChanged()
+
+
+        //Función que agrega los elemntos al ArrayList global (el que se generó el la clase MyApplication)
+        // Ya que este posee la orden actual
+        lvContactos.setOnItemClickListener(object: AdapterView.OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>, view:View, position:Int,
+                                     id:Long) {
+                //val item = (view as TextView).getText().toString()
+                //Toast.makeText(getBaseContext(), "Se ha añaido " +item+ " a su orden", Toast.LENGTH_LONG).show()
+                val item:Int = position
+                Log.d("Position ",""+position)
+
+                val intent = Intent(this@MainActivity, VerContacto::class.java)
+                val parametro = Bundle()
+                parametro.putInt("Posicion",item)
+                intent.putExtras(parametro)
+                startActivity(intent)
+
+
+            }
+        })
 
         val button = findViewById<Button>(R.id.btnAgregar)
         //Funcion que abre la activity de MostrarMenu
