@@ -1,15 +1,13 @@
 package com.example.edwincoronado.laboratorio3.Logic
 
-class MyContacts:Contacts {
+class MyContacts(nombreC: String,telefonoC: String,emailC: String):Contacts {
 
-    override var nombre:String = ""
-    override var telefono:String = ""
-    override var email:String = ""
+    override var nombre:String = nombreC
+    override var telefono:String = telefonoC
+    override var email:String = emailC
 
 
-    fun add(nombreC: String,telefonoC: String,emailC: String) {
-        nombre = nombreC
-        telefono = telefonoC
-        email = emailC
-    } //Agregar elemento
+//    fun getNombre(): String{
+//        return nombre
+//    }
 }
