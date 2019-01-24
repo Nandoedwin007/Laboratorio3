@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 //val item = (view as TextView).getText().toString()
                 //Toast.makeText(getBaseContext(), "Se ha añaido " +item+ " a su orden", Toast.LENGTH_LONG).show()
                 val item:Int = position
-                Log.d("Position ",""+position)
+                //Log.d("Position ",""+position)
 
                 val intent = Intent(this@MainActivity, VerContacto::class.java)
                 val parametro = Bundle()
@@ -82,9 +82,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        val buttonRefrecar = findViewById<Button>(R.id.btnRefrescar)
+        val buttonRefrescar = findViewById<Button>(R.id.btnRefrescar)
         //Funcion que abre la activity de MostrarMenu
-        buttonRefrecar.setOnClickListener(object: View.OnClickListener {
+        buttonRefrescar.setOnClickListener(object: View.OnClickListener {
             override fun onClick(view: View): Unit {
                 // Handler code here.
                 adaptador.notifyDataSetChanged()
