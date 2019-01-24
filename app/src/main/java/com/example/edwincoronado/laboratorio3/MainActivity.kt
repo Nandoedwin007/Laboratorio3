@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val context:MyApplication = applicationContext as MyApplication
-        val contactoPrueba = MyContacts("Edwin Coronado","12345678","cor14148@uvg.edu.gt")
-        context.MisContactos.add(contactoPrueba)
+        //val contactoPrueba = MyContacts("Edwin Coronado","12345678","cor14148@uvg.edu.gt")
+        //context.MisContactos.add(contactoPrueba)
 
 
         val mostrarContactos = context.MisContactos
