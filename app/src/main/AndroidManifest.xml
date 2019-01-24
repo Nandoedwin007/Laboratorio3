@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.edwincoronado.laboratorio3">
 
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
     <application
             android:name=".MyApplication"
             android:allowBackup="true"
@@ -20,6 +22,8 @@
         <activity android:name=".AgregarContacto">
         </activity>
         <activity android:name=".VerContacto">
+        </activity>
+        <activity android:name=".EnviarCorreo">
         </activity>
     </application>
 

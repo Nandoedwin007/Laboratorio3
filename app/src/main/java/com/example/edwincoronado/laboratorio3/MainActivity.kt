@@ -17,34 +17,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val context:MyApplication = applicationContext as MyApplication
-        val contactoPrueba = MyContacts("Edwin","12345678","edwin@gmail.com")
+        val contactoPrueba = MyContacts("Edwin Coronado","12345678","cor14148@uvg.edu.gt")
         context.MisContactos.add(contactoPrueba)
 
 
         val mostrarContactos = context.MisContactos
 
-
-        //Codigo para custom adapter NO FUNCIONA
-        //--------------------
-        //Definimos un objeto tipo ArrayAdapter
-//        val adaptador = ContactosAdapter(this,mostrarContactos)
-//
-//
-//        //Definimos un objeto tipo ListView usando el Id del XML
-//        val listView: ListView = findViewById(R.id.lvContactos)
-//
-//        listView.setAdapter(adaptador)
-        //----------------------
-
-
-        //Codigo para Adapter normal pero NO muestra Nombre y Celular
-        //val adaptador = ArrayAdapter(this,R.layout.simple_list_item1,mostrarContactos)
-
-
-
-        //Definimos un objeto tipo ListView usando el Id del XML
-        //val listView:ListView = findViewById(R.id.lvContactos)
-        //listView.setAdapter(adaptador)
 
         val adaptador = ContactosAdapter(this, mostrarContactos)
         lvContactos.adapter = adaptador
@@ -57,10 +35,8 @@ class MainActivity : AppCompatActivity() {
         lvContactos.setOnItemClickListener(object: AdapterView.OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>, view:View, position:Int,
                                      id:Long) {
-                //val item = (view as TextView).getText().toString()
-                //Toast.makeText(getBaseContext(), "Se ha añaido " +item+ " a su orden", Toast.LENGTH_LONG).show()
+
                 val item:Int = position
-                //Log.d("Position ",""+position)
 
                 val intent = Intent(this@MainActivity, VerContacto::class.java)
                 val parametro = Bundle()
@@ -82,20 +58,21 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        val buttonRefrescar = findViewById<Button>(R.id.btnRefrescar)
-        //Funcion que abre la activity de MostrarMenu
-        buttonRefrescar.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(view: View): Unit {
-                // Handler code here.
-                adaptador.notifyDataSetChanged()
-            }
-        })
 
+    }
 
+    override fun onResume() {
+        super.onResume()
 
+        val context:MyApplication = applicationContext as MyApplication
+        //val contactoPrueba = MyContacts("Edwin","12345678","edwin@gmail.com")
+        //context.MisContactos.add(contactoPrueba)
 
+        val mostrarContactos = context.MisContactos
+        val adaptador = ContactosAdapter(this, mostrarContactos)
+        lvContactos.adapter = adaptador
 
-
+        adaptador.notifyDataSetChanged()
     }
 
 }
