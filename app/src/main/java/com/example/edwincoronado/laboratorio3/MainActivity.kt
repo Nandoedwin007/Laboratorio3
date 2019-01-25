@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val context:MyApplication = applicationContext as MyApplication
+        //Estas líneas se utilizaban para no comenzar la lista de contactos vacía pero no afecta el no poseerla
         //val contactoPrueba = MyContacts("Edwin Coronado","12345678","cor14148@uvg.edu.gt")
         //context.MisContactos.add(contactoPrueba)
 
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         val mostrarContactos = context.MisContactos
 
 
+        //Se define el adaptador a utilizar, nótese que es un CustomAdapter ya que logra mostrar el nombre
+        // y número de teléfono en diferentes textviews
         val adaptador = ContactosAdapter(this, mostrarContactos)
         lvContactos.adapter = adaptador
 
@@ -38,7 +41,9 @@ class MainActivity : AppCompatActivity() {
 
                 val item:Int = position
 
+                //Se crea el intent para iniciar la otra actividad
                 val intent = Intent(this@MainActivity, VerContacto::class.java)
+                //Sin embargo, es necesario enviar la posición del contacto presionado para que pueda mostrarse en la siguiente Activity
                 val parametro = Bundle()
                 parametro.putInt("Posicion",item)
                 intent.putExtras(parametro)

@@ -20,16 +20,18 @@ class VerContacto : AppCompatActivity() {
         setContentView(R.layout.activity_ver_contacto)
         val MY_PERMISSIONS_REQUEST_CALL_PHONE:Int = 1;
 
+        //Como se mencionó en la MainActivity, el dato de la posición del contacto se envió y se utilizan las siguientes dos líneas
+        // para recuperar este parámetro y así obtener los datos del nombre, telefono y correo del contacto
         val b:Bundle = intent.extras
         val posicionContacto = b.getInt("Posicion")
 
-        //Log.d("Position ",""+posicionContacto)
-
+        //Una vez con el dato de posición de utiliza el array de objetos de clase contacto para obtener los datos requeridos
         val context:MyApplication = applicationContext as MyApplication
         val nombreActual:String = context.MisContactos[posicionContacto].nombre
         val telefonoActual:String = context.MisContactos[posicionContacto].telefono
         val emailActual:String = context.MisContactos[posicionContacto].email
 
+        //Se definen los TextViews para poder utilizarlos en el futuro
         val textViewNombre= findViewById<TextView>(R.id.tvNombre)
         val textViewTelefono= findViewById<TextView>(R.id.tvTelefono)
         val textViewEmail= findViewById<TextView>(R.id.tvEmail)
@@ -41,6 +43,7 @@ class VerContacto : AppCompatActivity() {
         //Esta linea permite hacer link con la aplicacion de telefono, es util pero no la deseada
         //Linkify.addLinks(textViewTelefono, Linkify.ALL)
 
+        //Función que dectecta si se precionó el TextView que posee el número de teléfono
         textViewTelefono.setOnClickListener{
             val phoneIntent = Intent(Intent.ACTION_CALL)
             phoneIntent.setData(Uri.parse("tel:"+telefonoActual))
@@ -49,17 +52,19 @@ class VerContacto : AppCompatActivity() {
             if ((ActivityCompat.checkSelfPermission(this@VerContacto,
                     android.Manifest.permission.CALL_PHONE) !== PackageManager.PERMISSION_GRANTED))
             {
+                //En caso que no posea el permiso necesario se sale de la función setOnClickListener
                 return@setOnClickListener
             }
+            //Si posee los permismos necesarios inicia el Intent para realizar llamadas
             startActivity(phoneIntent)
 
         }
 
+        //Función que detecta si se presionó el TextView del correo electrónico
+        //Nuevamente se hace un Intent para iniciar otra actividad pero en este caso también
+        //se envía el dato del correo al cual se enviará el mensaje por medio de la función
+        //putString()
         textViewEmail.setOnClickListener{
-
-
-            //val item:Int = position
-
             val intent = Intent(this@VerContacto, EnviarCorreo::class.java)
             val parametro = Bundle()
             parametro.putString("Destinatario",emailActual)

@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat.startActivity
 import android.util.Patterns
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.example.edwincoronado.laboratorio3.Logic.MyContacts
 import kotlinx.android.synthetic.main.activity_agregar_contacto.*
@@ -32,7 +33,7 @@ class AgregarContacto : AppCompatActivity() {
         val tilTelefonoM = findViewById<TextInputEditText>(R.id.tilTelefono)
         val tilEmailM = findViewById<TextInputEditText>(R.id.tilEmail)
 
-
+        //Variables donde se guardarán los nombres que se ingresaron een los TextInputLayout
         var nombreNuevo:String
         var telefonoNuevo:String
         var emailNuevo:String
@@ -64,11 +65,12 @@ class AgregarContacto : AppCompatActivity() {
 
 
     }
-
+    //Funciones utilizadas para validar los datos ingresados
     fun validarNombre(nombre:String):Boolean{
         val patron:Pattern = Pattern.compile("^[a-zA-Z ]+$")
         return patron.matcher(nombre).matches() || nombre.length>30
     }
+
 
     fun validarTelefono(telefono:String):Boolean{
         return Patterns.PHONE.matcher(telefono).matches()
@@ -80,16 +82,28 @@ class AgregarContacto : AppCompatActivity() {
 
     fun validarDatos(nombre: String,telefono: String,correo: String){
         val context:MyApplication = applicationContext as MyApplication
+
+        //Variables booleanas que utilizan las funciones de verificación de los datos ingresados
         val a:Boolean = validarNombre(nombre)
         val b:Boolean = validarTelefono(telefono)
         val c:Boolean = validarCorreo(correo)
 
+        val tilNombreM = findViewById<TextView>(R.id.tilNombre)
+        val tilTelefonoM = findViewById<TextInputEditText>(R.id.tilTelefono)
+        val tilEmailM = findViewById<TextInputEditText>(R.id.tilEmail)
+
+        //Si los datos ingresados son válidos entonces se procede a agregarlos a la lista de contactos
         if(a&&b&&c){
 
 
             val contactoNuevo = MyContacts(nombre,telefono,correo)
             context.MisContactos.add(contactoNuevo)
             Toast.makeText(getBaseContext(), "Se ha añadido a " + nombre + "  a los contactos", Toast.LENGTH_LONG).show()
+            //Luego de anadir en texto se elimina el texto ingresado
+            tilNombreM.setText("")
+            tilTelefonoM.setText("")
+            tilEmailM.setText("")
+
         }
         else {
             Toast.makeText(getBaseContext(), "Los datos del contacto NO son válidos, revíselos por favor", Toast.LENGTH_LONG).show()
