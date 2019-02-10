@@ -85,7 +85,18 @@ class VerContacto : AppCompatActivity() {
         }
 
 
+        val btnEditarCon = findViewById<Button>(R.id.btnEditar)
 
+        btnEditarCon.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(view: View): Unit {
+                // Handler code here.
+                val intent = Intent(this@VerContacto, EditarContacto::class.java)
+                val parametro = Bundle()
+                parametro.putInt("Posicion",posicionContacto)
+                intent.putExtras(parametro)
+                startActivity(intent)
+            }
+        })
 
         val btnRegresarM = findViewById<Button>(R.id.btnRegresar)
         //Funcion que abre la activity de MostrarMenu
