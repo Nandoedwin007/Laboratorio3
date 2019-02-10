@@ -26,6 +26,9 @@ class DatabaseHandler(context: Context) :
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         // Called when the database needs to be upgraded
     }
+    fun onUpdate(db:SQLiteDatabase?){
+
+    }
 
     //Inserting (Creating) data
     fun addUser(user: Users): Boolean {
@@ -37,7 +40,20 @@ class DatabaseHandler(context: Context) :
         values.put(CORREO, user.correo)
         val _success = db.insert(TABLE_NAME, null, values)
         db.close()
-        Log.v("InsertedID", "$_success")
+        Log.d("InsertedID", "$_success")
+        return (Integer.parseInt("$_success") != -1)
+    }
+
+    fun updateUser(posicion: Int,usuario:Users):Boolean{
+        val db = this.writableDatabase
+
+        val values = ContentValues()
+        values.put(NOMBRE_COMPLETO, usuario.nombreCompleto)
+        values.put(TELEFONO, usuario.telefono)
+        values.put(CORREO, usuario.correo)
+        val _success = db.update(TABLE_NAME,values,ID + "=" + posicion,null)
+        db.close()
+        Log.v("Se ha editado", "$_success")
         return (Integer.parseInt("$_success") != -1)
     }
 
@@ -49,6 +65,7 @@ class DatabaseHandler(context: Context) :
         //values.put(CORREO, user.correo)
         //val _success = db.delete(TABLE_NAME, null, values)
         val _success = db.delete(TABLE_NAME, ID + "=" + posicion,null)
+
         db.close()
         Log.v("Se ha borrado", "$_success")
         return (Integer.parseInt("$_success") != -1)

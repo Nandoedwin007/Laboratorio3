@@ -17,14 +17,16 @@ class MainActivity : AppCompatActivity() {
     var dbHandler: DatabaseHandler? = null
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //init db
-        dbHandler = DatabaseHandler(this)
+        dbHandler = DatabaseHandler(this@MainActivity)
 
-        val context:MyApplication = applicationContext as MyApplication
+        //val context:MyApplication = applicationContext as MyApplication
         //Estas líneas se utilizaban para no comenzar la lista de contactos vacía pero no afecta el no poseerla
         //val contactoPrueba = MyContacts("Edwin Coronado","12345678","cor14148@uvg.edu.gt")
         //context.MisContactos.add(contactoPrueba)
@@ -35,11 +37,9 @@ class MainActivity : AppCompatActivity() {
         var users = dbHandler!!.getAllUsers()
 
 
-
-
         //Se define el adaptador a utilizar, nótese que es un CustomAdapter ya que logra mostrar el nombre
         // y número de teléfono en diferentes textviews
-        val adaptador = ContactosAdapter(this, users)
+        val adaptador = ContactosAdapter(this@MainActivity, users)
         lvContactos.adapter = adaptador
 
         adaptador.notifyDataSetChanged()
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
                 val item:Int = position
 
-                Log.d("Posicion",item.toString())
+                Log.d("Posicion Main",item.toString())
 
                 //Se crea el intent para iniciar la otra actividad
                 val intent = Intent(this@MainActivity, VerContacto::class.java)
@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                 parametro.putInt("Posicion",item)
                 intent.putExtras(parametro)
                 startActivity(intent)
+                adaptador.notifyDataSetChanged()
 
 
             }
@@ -79,9 +80,11 @@ class MainActivity : AppCompatActivity() {
 
                 var item:Int = pos
 
-                item = item +1
+                //item = item +1
                 var user = dbHandler!!.delUser(item)
                 Toast.makeText(getBaseContext(), "Se ha REMOVIDO el contacto con el ID "+ item, Toast.LENGTH_LONG).show()
+                val adaptador = ContactosAdapter(this@MainActivity, users)
+                lvContactos.adapter = adaptador
                 adaptador.notifyDataSetChanged()
                 return true
             }
@@ -95,6 +98,7 @@ class MainActivity : AppCompatActivity() {
                 // Handler code here.
                 val intent = Intent(this@MainActivity, AgregarContacto::class.java)
                 startActivity(intent)
+                adaptador.notifyDataSetChanged()
             }
         })
 
@@ -109,6 +113,11 @@ class MainActivity : AppCompatActivity() {
         //context.MisContactos.add(contactoPrueba)
 
         //val mostrarContactos = context.MisContactos
+
+        dbHandler!!.close()
+        //init db
+        dbHandler = DatabaseHandler(this@MainActivity)
+
         var users = dbHandler!!.getAllUsers()
         //val adaptador = ContactosAdapter(this, users)
 
@@ -116,12 +125,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
         //Se define el adaptador a utilizar, nótese que es un CustomAdapter ya que logra mostrar el nombre
         // y número de teléfono en diferentes textviews
-        val adaptador = ContactosAdapter(this, users)
+        val adaptador = ContactosAdapter(this@MainActivity, users)
         lvContactos.adapter = adaptador
-
         adaptador.notifyDataSetChanged()
     }
 

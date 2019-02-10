@@ -33,7 +33,7 @@ class VerContacto : AppCompatActivity() {
         var posicionContacto = b.getInt("Posicion")
 
         //Una vez con el dato de posición de utiliza el array de objetos de clase contacto para obtener los datos requeridos
-        val context:MyApplication = applicationContext as MyApplication
+        //val context:MyApplication = applicationContext as MyApplication
 
         posicionContacto = posicionContacto +1
         var user = dbHandler!!.getContacto(posicionContacto)
@@ -41,6 +41,14 @@ class VerContacto : AppCompatActivity() {
         val nombreActual:String = user.nombreCompleto
         val telefonoActual:String = user.telefono
         val emailActual:String = user.correo
+
+//        var nombreActual:String = "11"
+//        var telefonoActual:String = "22"
+//        var emailActual:String = "33"
+//
+//        nombreActual = user.nombreCompleto
+//        telefonoActual = user.telefono
+//        //emailActual = user.correo
 
         //Se definen los TextViews para poder utilizarlos en el futuro
         val textViewNombre= findViewById<TextView>(R.id.tvNombre)

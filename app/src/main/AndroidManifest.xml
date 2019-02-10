@@ -6,12 +6,13 @@
 
     <application
             android:name=".MyApplication"
-            android:allowBackup="true"
+            android:allowBackup="false"
             android:icon="@mipmap/ic_launcher"
             android:label="Contactos"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
         <activity android:name=".EditarContacto">
         </activity>
         <activity android:name=".MainActivity">
