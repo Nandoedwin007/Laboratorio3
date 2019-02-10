@@ -12,15 +12,22 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.edwincoronado.laboratorio3.Logic.DatabaseHandler
 import com.example.edwincoronado.laboratorio3.Logic.MyContacts
+import com.example.edwincoronado.laboratorio3.Logic.Users
 import kotlinx.android.synthetic.main.activity_agregar_contacto.*
 import java.util.regex.Pattern
 
 class AgregarContacto : AppCompatActivity() {
 
+    var dbHandler: DatabaseHandler? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agregar_contacto)
+
+        //init db
+        dbHandler = DatabaseHandler(this)
 
         val context:MyApplication = applicationContext as MyApplication
 
@@ -95,11 +102,19 @@ class AgregarContacto : AppCompatActivity() {
         //Si los datos ingresados son válidos entonces se procede a agregarlos a la lista de contactos
         if(a&&b&&c){
 
+            val user:Users = Users()
+            var success:Boolean = false
 
-            val contactoNuevo = MyContacts(nombre,telefono,correo)
-            context.MisContactos.add(contactoNuevo)
-            Toast.makeText(getBaseContext(), "Se ha añadido a " + nombre + "  a los contactos", Toast.LENGTH_LONG).show()
-            //Luego de anadir en texto se elimina el texto ingresado
+            user.nombreCompleto = nombre
+            user.telefono = telefono
+            user.correo = correo
+
+            success = dbHandler!!.addUser(user)
+
+//            val contactoNuevo = MyContacts(nombre,telefono,correo)
+//            context.MisContactos.add(contactoNuevo)
+             Toast.makeText(getBaseContext(), "Se ha añadido a " + nombre + "  a los contactos", Toast.LENGTH_LONG).show()
+//            //Luego de anadir en texto se elimina el texto ingresado
             tilNombreM.setText("")
             tilTelefonoM.setText("")
             tilEmailM.setText("")

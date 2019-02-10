@@ -10,7 +10,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.edwincoronado.laboratorio3.R
 
-class ContactosAdapter(private val context: Context, private val dataSource: ArrayList<MyContacts>):BaseAdapter(){
+class ContactosAdapter(private val context: Context, private val dataSource: ArrayList<Users>):BaseAdapter(){
 
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -43,10 +43,10 @@ class ContactosAdapter(private val context: Context, private val dataSource: Arr
         val telefnoTextView = rowView.findViewById(R.id.telefono_contacto) as TextView
 
         // 1
-        val miContacto = getItem(position) as MyContacts
+        val miContacto = getItem(position) as Users
 
 // 2
-        nombreTextView.text = miContacto.nombre
+        nombreTextView.text = miContacto.nombreCompleto
         telefnoTextView.text = miContacto.telefono
         //detailTextView.text = recipe.label
 

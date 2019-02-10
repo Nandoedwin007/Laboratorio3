@@ -11,25 +11,36 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.example.edwincoronado.laboratorio3.Logic.DatabaseHandler
 import java.util.jar.Manifest
 
 class VerContacto : AppCompatActivity() {
 
+    var dbHandler: DatabaseHandler? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ver_contacto)
+
+        //init db
+        dbHandler = DatabaseHandler(this)
+
         val MY_PERMISSIONS_REQUEST_CALL_PHONE:Int = 1;
 
         //Como se mencionó en la MainActivity, el dato de la posición del contacto se envió y se utilizan las siguientes dos líneas
         // para recuperar este parámetro y así obtener los datos del nombre, telefono y correo del contacto
         val b:Bundle = intent.extras
-        val posicionContacto = b.getInt("Posicion")
+        var posicionContacto = b.getInt("Posicion")
 
         //Una vez con el dato de posición de utiliza el array de objetos de clase contacto para obtener los datos requeridos
         val context:MyApplication = applicationContext as MyApplication
-        val nombreActual:String = context.MisContactos[posicionContacto].nombre
-        val telefonoActual:String = context.MisContactos[posicionContacto].telefono
-        val emailActual:String = context.MisContactos[posicionContacto].email
+
+        posicionContacto = posicionContacto +1
+        var user = dbHandler!!.getContacto(posicionContacto)
+
+        val nombreActual:String = user.nombreCompleto
+        val telefonoActual:String = user.telefono
+        val emailActual:String = user.correo
 
         //Se definen los TextViews para poder utilizarlos en el futuro
         val textViewNombre= findViewById<TextView>(R.id.tvNombre)

@@ -2,12 +2,13 @@ package com.example.edwincoronado.laboratorio3
 
 import android.app.Application
 import com.example.edwincoronado.laboratorio3.Logic.MyContacts
+import com.example.edwincoronado.laboratorio3.Logic.Users
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MyApplication:Application(){
 
-    var MisContactos = ArrayList<MyContacts>()
+    var MisContactos = ArrayList<Users>()
 
     init {
         instance = this
